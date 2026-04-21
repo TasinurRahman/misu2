@@ -355,7 +355,7 @@
         .lang-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .lang-card { background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); }
         .lang-level-indicator { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .lang-pill { 
+        .lang-pill {white-space: nowrap; 
             background: var(--primary-color); 
             color: #fff; 
             padding: 6px 13px; 
@@ -1021,11 +1021,13 @@
             document.getElementById('hobbies-list').innerHTML = portfolioData.hobbies.map(hob => `
                 <div class="card"><h3>${hob.title}</h3><p>${hob.desc}</p></div>
             `).join('');
-
             document.getElementById('lang-list').innerHTML = portfolioData.languages.map(lang => `
                 <div class="lang-card">
-                    <h3>${lang.name}</h3><p>${lang.level}</p>
-                    ${lang.subSkills.map(s => `<span class="lang-pill">${s}</span>`).join('')}
+                    <h3>${lang.name}</h3>
+                    <p>${lang.level}</p>
+                    <div class="lang-level-indicator">
+                        ${lang.subSkills.map(s => `<span class="lang-pill">${s}</span>`).join('')}
+                    </div>
                 </div>
             `).join('');
         }
