@@ -372,7 +372,7 @@
            ========================================= */
         .contact-container {
             width: 100%;
-            max-width: 1100px; /* Responsive max width */
+            max-width: 800px; /* Responsive max width */
             margin: 0 auto;
             padding: 0;
             display: flex;
@@ -382,7 +382,7 @@
         
         .contact-item { 
             background: var(--card-bg); 
-            padding: 10px 50px; 
+            padding: 20px 50px; 
             border-radius: 20px; 
             display: flex; 
             align-items: center; 
@@ -406,11 +406,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 0.8rem;
             flex-shrink: 0;
         }
         .contact-text { flex: 1; }
-        .contact-text strong { display: block; font-size: 0.9rem; opacity: 0.7; margin-bottom: 2px; }
+        .contact-text strong { display: block; font-size: 0.9rem; opacity: 0.7; margin-bottom: 3px; }
         .contact-text {flex: 1;min-width: 0;}
         .contact-text div {
             font-size: 0.7rem;
@@ -811,7 +811,7 @@
     </main>
 
     <footer>
-        <p style="text-align: center; padding: 20px; opacity: 0.6; font-size: 0.9rem;">
+        <p style="text-align: center; padding: 20px; opacity: 0.6; font-size: 1rem;">
             &copy; 2026 CARBOLIX misu 1.0. All rights reserved.
         </p>
     </footer>
@@ -968,12 +968,9 @@
             document.getElementById('hero-bio').textContent = portfolioData.bio;
 
             const img = document.getElementById('about-img');
-            const safeImage = portfolioData.profileImage || INITIAL_PROFILE_URL;
-            img.src = safeImage;
-            img.onerror = function () {
-            this.src = INITIAL_PROFILE_URL;
-};
-img.style.display = 'block';   
+            if (portfolioData.profileImage) {
+                img.src = portfolioData.profileImage;
+                img.style.display = 'block';
                 
                 if (portfolioData.profileWidth) {
                     img.style.width = portfolioData.profileWidth;
@@ -1207,7 +1204,7 @@ img.style.display = 'block';
                 uploadBtn.textContent = "📁 Choose File to Upload";
                 const fileInp = document.createElement('input');
                 fileInp.type = 'file';
-                fileInp.accept = 'image/*';                
+                fileInp.accept = 'image/*';               
                 fileInp.onchange = (e) => {
                     const file = e.target.files[0];
                     if (!file) return;
