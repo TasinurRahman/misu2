@@ -968,9 +968,12 @@
             document.getElementById('hero-bio').textContent = portfolioData.bio;
 
             const img = document.getElementById('about-img');
-            if (portfolioData.profileImage) {
-                img.src = portfolioData.profileImage;
-                img.style.display = 'block';
+            const safeImage = portfolioData.profileImage || INITIAL_PROFILE_URL;
+            img.src = safeImage;
+            img.onerror = function () {
+            this.src = INITIAL_PROFILE_URL;
+};
+img.style.display = 'block';   
                 
                 if (portfolioData.profileWidth) {
                     img.style.width = portfolioData.profileWidth;
