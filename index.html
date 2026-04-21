@@ -304,14 +304,16 @@
             position: relative;
         }
         .profile-img { 
-            width: 100%; 
+            width: 100%;
             height: auto;
-            border-radius: 20px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
-            border: 2px solid var(--primary-color); 
-            transition: transform 0.3s; 
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 2px solid var(--primary-color);
+            transition: transform 0.3s;
             object-fit: cover;
-        }
+            max-width: 100%;
+            image-rendering: auto;
+}
         .profile-img:hover { transform: scale(1.02); }
 
         .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: start; z-index: 1; }
@@ -754,7 +756,7 @@
 
         <!-- Languages -->
         <section id="languages">
-            <div class="section-number">06</div>
+            <!--<div class="section-number">06</div>-->
             <h2 class="fade-in-section">Languages</h2>
             <div class="lang-grid fade-in-section" id="lang-list"></div>
         </section>
@@ -1202,25 +1204,25 @@
                 uploadBtn.textContent = "📁 Choose File to Upload";
                 const fileInp = document.createElement('input');
                 fileInp.type = 'file';
-                fileInp.accept = 'image/*';
-                
+                fileInp.accept = 'image/*';                
                 fileInp.onchange = (e) => {
                     const file = e.target.files[0];
-                    if (file) {
-                        if (file.size > 2 * 1024 * 1024) { 
-                             if(!confirm("This image is large and might slow down your browser. Are you sure?")) {
-                                 fileInp.value = ""; 
-                                 return;
-                             }
-                        }
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                            portfolioData.profileImage = event.target.result;
-                            urlInput.value = event.target.result.substring(0, 30) + "... (Uploaded)";
-                        };
-                        reader.readAsDataURL(file);
+                    if (!file) return;
+                    // size check (5MB allow)
+                    if (file.size > 5 * 1024 * 1024) {
+                       alert("Image too large! Please upload under 5MB.");
+                       fileInp.value = "";
+                       return;
                     }
-                };
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    portfolioData.profileImage = event.target.result;
+                    // instant preview update
+                   const img = document.getElementById('about-img');
+                   img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+};
 
                 uploadWrapper.appendChild(uploadBtn);
                 uploadWrapper.appendChild(fileInp);
