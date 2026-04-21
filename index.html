@@ -1209,19 +1209,23 @@
                     const file = e.target.files[0];
                     if (!file) return;
                     // size check (5MB allow)
-                    if (file.size > 5 * 1024 * 1024) {
-                       alert("Image too large! Please upload under 5MB.");
+                    if (file.size > 2 * 1024 * 1024) {
+                       alert("Image too large! Please upload under 2MB.");
                        fileInp.value = "";
                        return;
                     }
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    portfolioData.profileImage = event.target.result;
-                    // instant preview update
-                   const img = document.getElementById('about-img');
-                   img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
+                      const imgData = event.target.result;
+                      portfolioData.profileImage = imgData;
+                      const img = document.getElementById('about-img');
+                     // force reload (important for mobile) 
+                     img.src = "";
+                     setTimeout(() => {
+                         img.src = imgData;
+                    }, 50);
+                };
+                reader.readAsDataURL(file); 
 };
 
                 uploadWrapper.appendChild(uploadBtn);
