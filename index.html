@@ -829,7 +829,7 @@
         ];
 
         // Initialize with your provided URL
-        const INITIAL_PROFILE_URL = "https://drive.google.com/file/d/1Gfr9Os31g5eB28_VNeTu7cAi8RXxMQQO/view?usp=sharing";
+        const INITIAL_PROFILE_URL = "https://github.com/TasinurRahman/misu2/blob/main/profile.jpg?raw=true";
 
         let ADMIN_PASS = "admin2025"; 
         if(localStorage.getItem('admin_password')) {
@@ -856,8 +856,8 @@
                 { label: "Location", value: "Kurigram, Bangladesh" }
             ],
             education: [
-                { school: "Ideal College", degree: "Higher Secondary Certificate Examination", period: "2021 – 2023", website: "" },
-                { school: "Char Shoulmari B.L. High School", degree: "Secondary School Certificate Examination", period: "2011 – 2021", website: "" }
+                { school: "Ideal College", degree: "Higher Secondary Certificate Examination", period: "2021 – 2022", website: "" },
+                { school: "Char Shoulmari B.L. High School", degree: "Secondary School Certificate Examination", period: "2020 – 2021", website: "" }
             ],
             certifications: [
                 { title: "Barista & Mocktail", issuer: "Beacon Academy Bangladesh", date: "Dec 2025", desc: "Work based" },
@@ -1273,8 +1273,12 @@
                 rmBtn.className = 'btn-danger';
                 rmBtn.textContent = "Remove Image (Use Default)";
                 rmBtn.onclick = () => {
-                    if(confirm("Remove this image and use default?")) {
-                        portfolioData.profileImage = "";
+                     if(confirm("Remove image?")) {
+                         portfolioData.profileImage = "";      
+                        const img = document.getElementById('about-img');
+                        img.src = "";
+                       
+                
                         portfolioData.profileWidth = "";
                         portfolioData.profileHeight = "";
                         urlInput.value = "";
@@ -1285,6 +1289,18 @@
                 profGroup.appendChild(rmBtn);
 
                 pane.appendChild(profGroup);
+                const defaultBtn = document.createElement('button');
+                defaultBtn.className = 'btn-add-main';
+                defaultBtn.textContent = "Use Default Image";
+                defaultBtn.onclick = () => {
+                    portfolioData.profileImage = INITIAL_PROFILE_URL;
+                    const img = document.getElementById('about-img');
+                    img.src = "";
+                    setTimeout(() => {
+                        img.src = INITIAL_PROFILE_URL;
+                    }, 50);
+                };
+                profGroup.appendChild(defaultBtn);
             }
 
             const arrayKeys = {
@@ -1370,6 +1386,7 @@
                         <button class="btn-add-main" onclick="changePassword()">Update Password</button>
                     </div>
                 `;
+            
                 document.getElementById('show-new-pass').onclick = (e) => {
                     document.getElementById('new-pass-field').type = e.target.checked ? 'text' : 'password';
                 };
